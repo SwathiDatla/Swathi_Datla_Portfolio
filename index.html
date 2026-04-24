@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swathi Datla – Full Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #1a1a26;
+    --accent: #7c6ef5;
+    --accent2: #a78bfa;
+    --accent3: #38bdf8;
+    --text: #f0effe;
+    --muted: #8884a8;
+    --border: rgba(124,110,245,0.18);
+    --card: rgba(255,255,255,0.04);
+    --tag-bg: rgba(124,110,245,0.13);
+    --tag-text: #c4b8ff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 5vw;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--accent2); letter-spacing: -0.5px; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; letter-spacing: 0.02em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 5vw 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute; top: -200px; left: -100px;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(124,110,245,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-glow2 {
+    position: absolute; bottom: -100px; right: -100px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(56,189,248,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-label {
+    font-size: 0.82rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .hero-label::before { content: ''; display: block; width: 28px; height: 1px; background: var(--accent); }
+  h1 {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: 1.05; letter-spacing: -2px;
+    color: var(--text);
+    margin-bottom: 1rem;
+    max-width: 820px;
+  }
+  h1 span { color: var(--accent2); }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--muted); max-width: 520px;
+    margin-bottom: 2.5rem; font-weight: 300; line-height: 1.8;
+  }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.75rem; border-radius: 9999px;
+    font-size: 0.9rem; font-weight: 500; font-family: 'DM Sans', sans-serif;
+    cursor: pointer; transition: all 0.2s; text-decoration: none;
+  }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    border: none;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { background: var(--card); transform: translateY(-1px); }
+
+  .opt-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.25);
+    color: var(--accent3); font-size: 0.78rem; padding: 0.35rem 0.9rem; border-radius: 9999px;
+    margin-top: 2rem; width: fit-content;
+  }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent3); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity: 0.3; } }
+
+  /* SECTIONS */
+  section { padding: 5rem 5vw; }
+  .section-label {
+    font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+  h2 {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    letter-spacing: -1px; margin-bottom: 3rem;
+  }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
+  .skill-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.5rem;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .skill-card:hover { background: rgba(255,255,255,0.06); border-color: rgba(124,110,245,0.35); }
+  .skill-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+  .skill-card h3 { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--text); }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tag {
+    background: var(--tag-bg); color: var(--tag-text);
+    font-size: 0.73rem; padding: 0.25rem 0.6rem; border-radius: 6px;
+    font-weight: 400;
+  }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+  .project-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 2rem;
+    display: flex; flex-direction: column; gap: 1rem;
+    transition: border-color 0.25s, transform 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .project-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent3));
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .project-card:hover { border-color: rgba(124,110,245,0.4); transform: translateY(-3px); }
+  .project-card:hover::before { opacity: 1; }
+  .project-header { display: flex; justify-content: space-between; align-items: flex-start; }
+  .project-num { font-family: 'Syne', sans-serif; font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; }
+  .project-link {
+    color: var(--muted); text-decoration: none; font-size: 0.8rem;
+    display: flex; align-items: center; gap: 0.3rem;
+    padding: 0.3rem 0.7rem; border: 1px solid var(--border); border-radius: 8px;
+    transition: all 0.2s;
+  }
+  .project-link:hover { color: var(--accent2); border-color: var(--accent); }
+  .project-card h3 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+  .project-type { font-size: 0.78rem; color: var(--accent3); letter-spacing: 0.05em; }
+  .project-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.75; }
+  .project-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .project-bullets li { font-size: 0.83rem; color: var(--muted); padding-left: 1rem; position: relative; line-height: 1.6; }
+  .project-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.7rem; top: 0.15rem; }
+
+  /* ABOUT */
+  .about-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+  }
+  @media (max-width: 680px) { .about-inner { grid-template-columns: 1fr; } }
+  .about-text { font-size: 1rem; color: var(--muted); line-height: 1.85; }
+  .about-text p + p { margin-top: 1rem; }
+  .about-stats { display: flex; flex-direction: column; gap: 1rem; }
+  .stat-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 1.25rem; background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  }
+  .stat-label { font-size: 0.82rem; color: var(--muted); }
+  .stat-val { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text); }
+
+  /* CONTACT */
+  .contact-inner { max-width: 600px; }
+  .contact-inner p { font-size: 1rem; color: var(--muted); margin-bottom: 2rem; line-height: 1.8; }
+  .contact-links { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .contact-link {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.75rem 1.5rem; border-radius: 12px;
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--text); text-decoration: none; font-size: 0.88rem;
+    transition: all 0.2s;
+  }
+  .contact-link:hover { background: rgba(255,255,255,0.07); border-color: rgba(124,110,245,0.4); color: var(--accent2); }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 2rem 5vw;
+    border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 0.8rem;
+  }
+
+  /* DIVIDER */
+  .section-line { width: 100%; height: 1px; background: var(--border); margin: 0; }
+
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    h1 { letter-spacing: -1px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">SD</span>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-label">Full Stack Developer</div>
+  <h1>Hi, I'm <span>Swathi</span><br>Datla.</h1>
+  <p class="hero-sub">I build full-stack web applications and AI-powered tools — from clean React frontends to robust Django and FastAPI backends.</p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">View my work ↓</a>
+    <a href="mailto:datlaswathi67@gmail.com" class="btn btn-outline">Get in touch</a>
+  </div>
+  <div class="opt-badge">
+    <span class="dot"></span>
+    Available for full-time roles · OPT (STEM eligible · no sponsorship needed)
+  </div>
+</section>
+
+<div class="section-line"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Work</div>
+  <h2>Featured Projects</h2>
+  <div class="projects-grid">
+
+    <!-- TaskFlow -->
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-num">01</span>
+        <a href="https://github.com/SwathiDatla/" class="project-link" target="_blank">GitHub ↗</a>
+      </div>
+      <div>
+        <div class="project-type">Full-Stack SaaS · Individual</div>
+        <h3>TaskFlow — Task Management Platform</h3>
+      </div>
+      <ul class="project-bullets">
+        <li>Secure authentication with session handling using Django REST Framework</li>
+        <li>RESTful APIs for seamless React ↔ Django communication via Axios</li>
+        <li>Real-time CRUD operations for task tracking with responsive, mobile-first UI</li>
+        <li>Reusable React Hook-based components and Django ORM for maintainable architecture</li>
+      </ul>
+      <div class="tags">
+        <span class="tag">React.js</span><span class="tag">Django</span><span class="tag">DRF</span>
+        <span class="tag">MySQL</span><span class="tag">Axios</span><span class="tag">REST API</span>
+      </div>
+    </div>
+
+    <!-- Billing -->
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-num">02</span>
+        <a href="https://github.com/SwathiDatla/" class="project-link" target="_blank">GitHub ↗</a>
+      </div>
+      <div>
+        <div class="project-type">Backend System · Individual</div>
+        <h3>Retail Billing & Inventory System</h3>
+      </div>
+      <ul class="project-bullets">
+        <li>End-to-end billing system with product management, tax calculation & invoice generation</li>
+        <li>MongoDB-powered CRUD for real-time inventory tracking</li>
+        <li>Automated bill generation with robust error handling and data validation</li>
+        <li>Reduced manual calculation errors and improved transaction accuracy</li>
+      </ul>
+      <div class="tags">
+        <span class="tag">Python</span><span class="tag">MongoDB</span>
+        <span class="tag">REST API</span><span class="tag">JavaScript</span>
+      </div>
+    </div>
+
+    <!-- X-ray -->
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-num">03</span>
+        <a href="https://github.com/SwathiDatla/" class="project-link" target="_blank">GitHub ↗</a>
+      </div>
+      <div>
+        <div class="project-type">ML / Computer Vision · Team of 3</div>
+        <h3>Chest X-ray Disease Detection</h3>
+      </div>
+      <ul class="project-bullets">
+        <li>CNN-based medical image classifier using ResNet50 transfer learning</li>
+        <li>Built model pipeline with TensorFlow/Keras including data preprocessing</li>
+        <li>Grad-CAM visualizations to highlight lung regions influencing predictions</li>
+        <li>Data augmentation + evaluation via accuracy, precision, recall, confusion matrix</li>
+      </ul>
+      <div class="tags">
+        <span class="tag">Python</span><span class="tag">TensorFlow</span><span class="tag">Keras</span>
+        <span class="tag">ResNet50</span><span class="tag">OpenCV</span><span class="tag">Grad-CAM</span>
+      </div>
+    </div>
+
+    <!-- AI Resume -->
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-num">04</span>
+        <a href="https://github.com/SwathiDatla/" class="project-link" target="_blank">GitHub ↗</a>
+      </div>
+      <div>
+        <div class="project-type">AI-Powered Backend · Individual</div>
+        <h3>AI Resume Analyzer & Integration API</h3>
+      </div>
+      <ul class="project-bullets">
+        <li>FastAPI backend for resume ingestion, validation, and structured data extraction</li>
+        <li>OpenAI API integration for intelligent resume scoring and skill extraction</li>
+        <li>Modular architecture with full error handling and request validation</li>
+        <li>Designed for scalability with clean RESTful endpoint structure</li>
+      </ul>
+      <div class="tags">
+        <span class="tag">FastAPI</span><span class="tag">Python</span>
+        <span class="tag">OpenAI API</span><span class="tag">REST API</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-line"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Expertise</div>
+  <h2>Skills & Technologies</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">⬡</div>
+      <h3>Frontend</h3>
+      <div class="tags">
+        <span class="tag">React.js</span><span class="tag">JavaScript</span>
+        <span class="tag">TypeScript</span><span class="tag">HTML5</span><span class="tag">CSS3</span>
+        <span class="tag">React Hooks</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">◈</div>
+      <h3>Backend</h3>
+      <div class="tags">
+        <span class="tag">Django</span><span class="tag">DRF</span>
+        <span class="tag">FastAPI</span><span class="tag">Python</span>
+        <span class="tag">REST APIs</span><span class="tag">Axios</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">◉</div>
+      <h3>Databases</h3>
+      <div class="tags">
+        <span class="tag">MySQL</span><span class="tag">SQLite</span>
+        <span class="tag">MongoDB</span><span class="tag">Django ORM</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">◌</div>
+      <h3>AI / ML</h3>
+      <div class="tags">
+        <span class="tag">TensorFlow</span><span class="tag">Keras</span>
+        <span class="tag">OpenCV</span><span class="tag">NumPy</span>
+        <span class="tag">Pandas</span><span class="tag">OpenAI API</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">◫</div>
+      <h3>Tools & Dev</h3>
+      <div class="tags">
+        <span class="tag">Git</span><span class="tag">GitHub</span>
+        <span class="tag">VS Code</span><span class="tag">Postman</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">◧</div>
+      <h3>Concepts</h3>
+      <div class="tags">
+        <span class="tag">Full-Stack Dev</span><span class="tag">RESTful APIs</span>
+        <span class="tag">Transfer Learning</span><span class="tag">CRUD</span>
+        <span class="tag">Auth & Sessions</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-line"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <h2>A bit about me</h2>
+  <div class="about-inner">
+    <div class="about-text">
+      <p>I'm Swathi Datla, a full-stack developer with a Master's in Applied Computer Science (Dec 2025). I enjoy building products that are functional, well-structured, and thoughtfully designed — from user-facing React interfaces to scalable Django and FastAPI backends.</p>
+      <p>My projects span task management SaaS platforms, AI-powered tools, medical image classification, and retail systems — reflecting a wide curiosity and a bias for hands-on building.</p>
+      <p>I'm currently on OPT and actively looking for full-time Software Engineering or Full Stack roles in the US. No sponsorship is required for the first three years, with STEM OPT extension eligibility.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-row">
+        <span class="stat-label">Degree</span>
+        <span class="stat-val">M.S. Applied Computer Science</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Graduated</span>
+        <span class="stat-val">December 2025</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Work Auth</span>
+        <span class="stat-val">OPT · STEM Eligible</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Focus</span>
+        <span class="stat-val">Full Stack · Web Dev</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Status</span>
+        <span class="stat-val" style="color: #4ade80;">Open to Work ✓</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-line"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Contact</div>
+  <h2>Let's connect</h2>
+  <div class="contact-inner">
+    <p>I'm actively looking for full-time full-stack or software engineering roles. If you're hiring or want to chat about a project, my inbox is open.</p>
+    <div class="contact-links">
+      <a href="mailto:datlaswathi67@gmail.com" class="contact-link">
+        ✉ datlaswathi67@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/swathi-datla" class="contact-link" target="_blank">
+        in LinkedIn
+      </a>
+      <a href="https://github.com/SwathiDatla" class="contact-link" target="_blank">
+        ⌥ GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Designed & built by Swathi Datla · 2025</p>
+</footer>
+
+</body>
+</html>
